@@ -1,1 +1,3 @@
 # Towards-Agentic-Self-Learning
+
+We are decoupling the non-open-source parts from the open-source VERL framework parts, coming very soon...
