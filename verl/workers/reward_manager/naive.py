@@ -18,7 +18,7 @@ from typing import Any
 import torch
 
 # from verl.utils.reward_score import default_compute_score
-from redaccel.verl.rewards.reward_score import default_compute_score
+from src.verl.rewards.reward_score import default_compute_score
 from verl import DataProto
 from verl.workers.reward_manager import register
 from verl.workers.reward_manager.abstract import AbstractRewardManager

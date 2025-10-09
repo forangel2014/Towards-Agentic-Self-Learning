@@ -329,7 +329,7 @@ class RewardManagerWorker:
         tokenizer = hf_tokenizer(local_path, trust_remote_code=True)
         self.enable = True
         if config.reward_model.reward_manager == "compose":
-            from redaccel.verl.rewards.compose import load_compose_reward_manager
+            from src.verl.rewards.compose import load_compose_reward_manager
 
             config.reward_model.agent_loop = True
             self.reward_manager = load_compose_reward_manager(tokenizer, config, is_val=False)
@@ -501,8 +501,8 @@ class AgentLoopWorker:
             config (DictConfig): YAML config.
             server_handles (List[ray.actor.ActorHandle]): OpenAI compatible LLM server actor handles.
         """
-        from redaccel.models import register_all_models
-        from redaccel.utils.registry import load_plugins
+        from src.models import register_all_models
+        from src.utils.registry import load_plugins
 
         register_all_models()
         load_plugins(config.actor_rollout_ref.rollout.plugin_dir)
@@ -573,7 +573,7 @@ class AgentLoopWorker:
 
         # by default, we assume it's a single turn agent
         if "agent_name" not in batch.non_tensor_batch:
-            batch.non_tensor_batch["agent_name"] = np.array(["redaccel_agent"] * len(batch), dtype=object)
+            batch.non_tensor_batch["agent_name"] = np.array(["src_agent"] * len(batch), dtype=object)
 
         if "index" in batch.non_tensor_batch:
             index = batch.non_tensor_batch["index"]
@@ -710,7 +710,7 @@ class AgentLoopWorker:
             attention_mask = torch.cat([prompt_output["attention_mask"], response_output["attention_mask"]], dim=1)
             input_ids = torch.cat([prompt_output["input_ids"], response_output["input_ids"]], dim=1)
 
-            from redaccel.models import is_agivlm
+            from src.models import is_agivlm
 
             if (
                 self.processor is not None
@@ -847,8 +847,8 @@ async def get_trajectory_info(step, index, validate):
 class ToolExecutionWorker:
     def __init__(self, config) -> None:
         # NOTE(wuhuan): 为了控制 tool 全局并发，但是不该放这里，反向引用了，后面要把 envs 抽出来
-        from redaccel.models import register_all_models
-        from redaccel.verl.agent.parallel_env import execute_tool_call
+        from src.models import register_all_models
+        from src.verl.agent.parallel_env import execute_tool_call
 
         register_all_models()
 

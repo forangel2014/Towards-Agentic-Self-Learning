@@ -173,7 +173,7 @@ class Worker(WorkerHelper):
 
         self.fused_worker_dict = {}
 
-        from redaccel.models import register_all_models
+        from src.models import register_all_models
 
         register_all_models()
 

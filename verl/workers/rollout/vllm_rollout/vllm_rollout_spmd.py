@@ -227,7 +227,7 @@ class vLLMRollout(BaseRollout):
 
         self.tokenizer = tokenizer
 
-        from redaccel.utils.registry import load_plugins
+        from src.utils.registry import load_plugins
 
         load_plugins(config.plugin_dir)
 
@@ -371,7 +371,7 @@ class vLLMRollout(BaseRollout):
         # users can customize different sampling_params at different run
         with self.update_sampling_params(**kwargs), self.profiler():
             if self.config.agent.activate_agent:
-                from redaccel.verl.agent.parallel_env import agent_rollout_loop
+                from src.verl.agent.parallel_env import agent_rollout_loop
 
                 tp_group = vllm_ps.get_tp_group()
 

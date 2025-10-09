@@ -81,7 +81,7 @@ def model_forward(
         inputs_embeds = inputs_embeds.masked_scatter(image_mask, image_embeds)
 
     elif dummy_mm_inputs is not None:
-        logger.warning("[RedAccel] use dummy pixel_values in case of hang in zero3 stage")
+        logger.warning("[RedNote] use dummy pixel_values in case of hang in zero3 stage")
         image_embeds = self.get_image_features(
             dummy_mm_inputs["pixel_values"].type(self.visual.dtype).to(inputs_embeds.device),
             dummy_mm_inputs["image_grid_thw"].to(inputs_embeds.device),

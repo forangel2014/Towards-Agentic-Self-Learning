@@ -39,9 +39,8 @@ from torch.utils.data import Dataset, Sampler
 from torchdata.stateful_dataloader import StatefulDataLoader
 from tqdm import tqdm
 
-from redaccel.verl.agent.agent_loop import RedAccelAgentLoop  # noqa
-from redaccel.verl.agent.utils import process_agent_gen_batch
-from redaccel.verl.rewards.utils import REWARD_AGG_LABELS_KEY, REWARD_METRICS_KEY
+from src.verl.agent.utils import process_agent_gen_batch
+from src.verl.rewards.utils import REWARD_AGG_LABELS_KEY, REWARD_METRICS_KEY
 from verl import DataProto
 from verl.experimental.dataset.sampler import AbstractCurriculumSampler
 from verl.protocol import pad_dataproto_to_divisor, unpad_dataproto
@@ -711,7 +710,7 @@ class RayPPOTrainer:
         self.validation_generations_logger.log(self.config.trainer.logger, samples, self.global_steps)
 
     def _validate(self):
-        from redaccel.verl.rewards.compose import ComposeRewardManager
+        from src.verl.rewards.compose import ComposeRewardManager
 
         data_source_lst = []
         reward_extra_infos_dict: dict[str, list] = defaultdict(list)
@@ -1164,7 +1163,7 @@ class RayPPOTrainer:
         metrics.update(global_balance_stats)
 
     def _fit_pairwise_inner(self, batch: DataProto, gen_batch, logger, metrics):
-        from redaccel.verl.rewards.compose import ComposeRewardManager
+        from src.verl.rewards.compose import ComposeRewardManager
 
         assert isinstance(self.reward_fn, ComposeRewardManager)
 
@@ -1179,7 +1178,7 @@ class RayPPOTrainer:
                 session_env = None
                 session_max_turn = 1
                 if self.config.actor_rollout_ref.rollout.session_prompt.enable:
-                    from redaccel.verl.multi_session.multi_session_env import MultiSessionEnv
+                    from src.verl.multi_session.multi_session_env import MultiSessionEnv
 
                     session_max_turn = self.config.actor_rollout_ref.rollout.session_prompt.max_turn
                     session_env = MultiSessionEnv(self.tokenizer, self.processor, self.config, n_gpus)
@@ -1411,7 +1410,7 @@ class RayPPOTrainer:
         """
         from omegaconf import OmegaConf
 
-        from redaccel.verl.rewards.compose import ComposeRewardManager
+        from src.verl.rewards.compose import ComposeRewardManager
         from verl.utils.tracking import Tracking
 
         self.global_steps = 0

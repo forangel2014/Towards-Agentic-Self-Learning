@@ -66,7 +66,7 @@ class Tracking:
         import os
 
         user_name = os.getenv("QS_USER", "anonymous")
-        full_project_name = f"RedAccel-RL-diandian/{user_name}/{project_name}"
+        full_project_name = f"RedNote-RL-diandian/{user_name}/{project_name}"
 
         if isinstance(default_backend, str):
             default_backend = [default_backend]
@@ -232,7 +232,7 @@ def run_git_command(cmds: list[str], directory_path):
 
 class WebhookLogger:
     def __init__(self, project_name: str, experiment_name: str, config, loggers) -> None:
-        from redaccel.utils.configs import Configs
+        from src.utils.configs import Configs
 
         self.project_name = project_name
         self.experiment_name = experiment_name
@@ -264,7 +264,7 @@ class WebhookLogger:
                 v = core_metric_fmt[k].format(data[k])
                 core_metric_strs.append(f"{k}:{v}")
         core_metric_str = ", ".join(core_metric_strs)
-        markdown = f"""## RedAccel 任务运行中
+        markdown = f"""## RedNote 任务运行中
 
 - 项目: {self.project_name}
 - 实验：{self.experiment_name}
@@ -280,7 +280,7 @@ class WebhookLogger:
     def _notify_when_start(self):
         if not self.webhooks:
             return
-        markdown = f"""## RedAccel 任务启动
+        markdown = f"""## RedNote 任务启动
 
 - 项目: {self.project_name}
 - 实验：{self.experiment_name}
@@ -324,11 +324,11 @@ class ClearMLLogger:
 
         import clearml
 
-        import redaccel
+        import src
 
         os.environ["CLEARML_LOG_MODEL"] = "false"
 
-        redaccel_dir = Path(redaccel.__file__).parent.parent
+        src_dir = Path(src.__file__).parent.parent
 
         self.project_name = project_name
         self.experiment_name = experiment_name + datetime.now().strftime("-%m%d_%H%M")
@@ -341,18 +341,18 @@ class ClearMLLogger:
             auto_connect_frameworks={"tensorboard": False},
         )
 
-        self._task.set_repo(str(redaccel_dir))
-        self._task.set_user_properties(redaccel_dir=str(redaccel_dir))
+        self._task.set_repo(str(src_dir))
+        self._task.set_user_properties(src_dir=str(src_dir))
         for k in config:
             self._task.connect(config[k], name=k)
         self._task.connect_configuration(
             {
-                "git log": run_git_command(["git", "--no-pager", "log", "--branches", "-8"], redaccel_dir)[1],
+                "git log": run_git_command(["git", "--no-pager", "log", "--branches", "-8"], src_dir)[1],
             },
             name="git log",
         )
         self._task.connect_configuration(
-            {"git status": run_git_command(["git", "status"], redaccel_dir)[1]},
+            {"git status": run_git_command(["git", "status"], src_dir)[1]},
             name="git status",
         )
         atexit.register(self._task.close)

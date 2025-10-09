@@ -93,7 +93,7 @@ def default_compute_score(
         res, res_detail = general_verify.batch_compute_verify_score([solution_str], [ground_truth])
         res = res[0]
     elif data_source in ["open-r1/codeforces"]:
-        from redaccel.verl.rewards.reward_score import code_verify
+        from src.verl.rewards.reward_score import code_verify
 
         res, pass_rate = code_verify.compute_score(solution_str, ground_truth)
 
@@ -119,17 +119,17 @@ def default_compute_score(
         pass
 
     elif data_source in ["rag_v2-train", "R1-Searcher"]:
-        from redaccel.verl.rewards.reward_score import agent
+        from src.verl.rewards.reward_score import agent
 
         res = agent.compute_score_qwen_tool(solution_str, ground_truth)
 
     elif data_source in ["rag_v2-test"]:
-        from redaccel.verl.rewards.reward_score import agent
+        from src.verl.rewards.reward_score import agent
 
         res = agent.compute_score_eval(solution_str, ground_truth)
 
     elif data_source in ["vl_agent"]:
-        from redaccel.verl.rewards.reward_score import vl_agent
+        from src.verl.rewards.reward_score import vl_agent
 
         res = vl_agent.compute_score(solution_str, ground_truth, extra_info)
 

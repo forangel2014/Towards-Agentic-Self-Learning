@@ -1,4 +1,4 @@
-# Copyright (c) 2025 RedAccel Authors. All Rights Reserved.
+# Copyright (c) 2025 RedNote Authors. All Rights Reserved.
 
 from .policy_demo import DemoPolicyReward  # noqa
 from .asl import AgenticSelfLearningReward  # noqa
