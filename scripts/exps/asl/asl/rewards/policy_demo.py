@@ -1,4 +1,4 @@
-# Copyright (c) 2025 RedAccel Authors. All Rights Reserved.
+# Copyright (c) 2025 RedNote Authors. All Rights Reserved.
 
 import json
 import os
@@ -13,8 +13,8 @@ import numpy as np
 import torch.nn.functional as F
 
 import verl.utils.torch_functional as verl_F
-from redaccel.verl.rewards.std.base import GRPORewards, rewards_registry
-from redaccel.verl.rewards.utils import WithWorkerGroupMixin
+from src.verl.rewards.std.base import GRPORewards, rewards_registry
+from src.verl.rewards.utils import WithWorkerGroupMixin
 from verl import DataProto
 from verl.protocol import pad_dataproto_to_divisor, unpad_dataproto
 from verl.utils.model import compute_position_id_with_mask

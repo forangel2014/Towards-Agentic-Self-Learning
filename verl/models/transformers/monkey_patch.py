@@ -321,7 +321,7 @@ def apply_monkey_patch_for_dummy_image(processor, module):
     from transformers.models.qwen2_5_vl.modeling_qwen2_5_vl import Qwen2_5_VLModel
     from transformers.models.qwen2_5_vl.processing_qwen2_5_vl import Qwen2_5_VLProcessor
 
-    from redaccel.models import is_agivlm1_6, is_agivlm1_7
+    from src.models import is_agivlm1_6, is_agivlm1_7
 
     dummy_images = [Image.new("RGB", (64, 64), (255, 255, 255))]
 

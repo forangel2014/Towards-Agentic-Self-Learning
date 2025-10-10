@@ -1,4 +1,4 @@
-# Copyright (c) 2025 RedAccel Authors. All Rights Reserved.
+# Copyright (c) 2025 RedNote Authors. All Rights Reserved.
 
 import json
 import os
@@ -13,8 +13,8 @@ import numpy as np
 import torch.nn.functional as F
 
 import verl.utils.torch_functional as verl_F
-from redaccel.verl.rewards.std.base import GRPORewards, rewards_registry
-from redaccel.verl.rewards.utils import WithWorkerGroupMixin
+from src.verl.rewards.std.base import GRPORewards, rewards_registry
+from src.verl.rewards.utils import WithWorkerGroupMixin
 from verl import DataProto
 from verl.protocol import pad_dataproto_to_divisor, unpad_dataproto
 from verl.utils.model import compute_position_id_with_mask
@@ -1083,7 +1083,7 @@ def compute_rule_scores(rule_prompts, rule_solutions, rule_completions, config, 
     elif config.reward_model.rule_verification_method == "random":
         rule_scores = [random.choice([0, 1]) for _ in range(len(rule_completions))]
     elif config.reward_model.rule_verification_method == "browsecomp":
-        from redaccel.verl.rewards.std.browsecomp import evaluator
+        from src.verl.rewards.std.browsecomp import evaluator
 
         rule_questions = [
             rule_prompts[i].split("<|im_start|>user")[1].split("<|im_end|>")[0].strip()

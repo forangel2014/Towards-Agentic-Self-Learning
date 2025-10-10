@@ -3,7 +3,7 @@ import os
 import time
 from copy import deepcopy
 
-from redaccel.utils.event_tracker import EventTracker
+from src.utils.event_tracker import EventTracker
 from verl import DataProto
 
 _start_timestamp = time.time()

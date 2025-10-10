@@ -1,8 +1,8 @@
-# Copyright (c) 2025 RedAccel Authors. All Rights Reserved.
+# Copyright (c) 2025 RedNote Authors. All Rights Reserved.
 
 import json
 
-from redaccel.verl.agent.tool_envs import ToolBase, extract_tool_call_contents
+from src.verl.agent.tool_envs import ToolBase, extract_tool_call_contents
 
 from .function_call import function_call
 

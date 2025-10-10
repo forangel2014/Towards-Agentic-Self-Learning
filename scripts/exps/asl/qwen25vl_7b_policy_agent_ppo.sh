@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Copyright (c) 2025 RedAccel Authors. All Rights Reserved.
-
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 echo DIR: ${DIR}
 
@@ -101,8 +99,4 @@ dt=`date '+%Y-%m-%d_%H-%M-%S'`
 log_dir=./exp/${EXP_NAME}/log/${dt}
 mkdir -p ${log_dir}
 
-if which redaccel-cli 2>&1 > /dev/null; then
-    redaccel-cli rl "${cmd[@]}" 2>&1 | tee ${log_dir}/main.log
-else
-    python -m redaccel.cli rl "${cmd[@]}" 2>&1 | tee ${log_dir}/main.log
-fi
+python -m src.cli rl "${cmd[@]}" 2>&1 | tee ${log_dir}/main.log
