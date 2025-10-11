@@ -5,58 +5,11 @@ import random
 
 import requests
 
-
-def mm_web_search(query, filter=3, xhs_size=5, web_size=5, snippet=False, mkt=""):
-    """https://apifox.com/apidoc/shared-90b3decf-
-    add1-44c8-8a88-d1582fe8692a/api-185854794.
-
-    Args:
-        query (_type_): _description_
-        filter (int, optional): _description_. Defaults to 1.
-        xhs_size (int, optional): _description_. Defaults to 5.
-        web_size (int, optional): _description_. Defaults to 5.
-
-    Returns:
-        _type_: _description_
-    """
-
-    url = "https://agi-redbot.devops.xiaohongshu.com/redbot/backend/api/search/hybrid_web_search"
-    # url = "https://agi-redbot.devops.beta.xiaohongshu.com/redbot/backend/api/search/hybrid_web_search"
-    json_payload = {
-        "query": query,
-        "xhs": {
-            "size": xhs_size,
-            "filters": filter,  # 1 图文，2 视频，3 视频+图片
-            "threshold": 0.285,
-        },
-        "web": {
-            "size": web_size,
-            "snippet": snippet,
-            "crawlTimeOut": 5000,
-            "contentLength": -1,
-            "mkt": "en-US",
-        },
-        "politic": None,
-    }
-    if mkt == "en":
-        json_payload["web"]["mkt"] = "en-US"
-    payload = json.dumps(json_payload)
-    headers = {
-        "User-Agent": "Apifox/1.0.0 (https://apifox.com)",
-        "Content-Type": "application/json",
-    }
-
-    response = requests.request("POST", url, headers=headers, data=payload)
-    result = json.loads(response.text)
-    return result["data"]
-
-
 def retrieve(query, topk=3, return_scores=True):
     import json
-
     import requests
 
-    ips = ["22.0.198.95"]  # "22.1.88.166", #, "22.4.102.195"
+    ips = ["<your server ip>"]
     ports = [8000, 8001, 8002, 8003, 8004, 8005, 8006, 8007]
     # 服务器地址
     url = f"http://{random.choice(ips)}:{random.choice(ports)}/retrieve"
@@ -120,10 +73,6 @@ def set_default_functioncall_args(functioncall):
 
 
 if __name__ == "__main__":
-    # obs = mm_web_search("初恋男友忽冷忽热 分分合合的感情还能持续多久", filter=3)
-    # for line in obs:
-    #     print(line["relevanceScore"])
-    #     print(line["url"])
 
     # 单个查询
     results = retrieve("university in Beijing")
@@ -131,5 +80,3 @@ if __name__ == "__main__":
     # # 多个查询
     # results = retrieve(["什么是机器学习?", "深度学习的应用"], topk=5)
 
-    # # 指定远程服务
-    # results = retrieve("查询内容", host="192.168.1.100", port=8000)

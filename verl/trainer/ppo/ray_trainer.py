@@ -1626,7 +1626,7 @@ class RayPPOTrainer:
                         if isinstance(self.reward_fn, ComposeRewardManager):
                             reward_results = get_reward()
                             # NOTE(wuhuan): early stop controlled by reward functions
-                            is_last_step = reward_results.pop("is_last_steps", [False])[0]
+                            is_last_step = reward_results.pop("is_last_step", [False])[0]
                         elif self.config.reward_model.launch_reward_fn_async:
                             reward_results = ray.get(future_reward)
 

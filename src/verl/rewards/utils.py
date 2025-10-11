@@ -154,7 +154,7 @@ class AllinModel:
         self,
         model_name,
         api_key="QST2cc6de76054a22d0f6446772811b7050",
-        base_url="http://redservingapi.devops.xiaohongshu.com/v1",
+        base_url="",
     ):
         self.model_name = model_name
         self.api_key = api_key

@@ -67,7 +67,7 @@ def get_completion_gpt(messages, api_key, temperature=0.7, max_tokens=2048):
     while True:
         try:
             completion = requests.post(
-                f"https://runway.devops.xiaohongshu.com/openai/chat/completions?api-version={api_version}",
+                f"<your url>={api_version}",
                 json={"messages": messages, "temperature": temperature, "max_tokens": max_tokens},
                 headers={
                     "Content-Type": "application/json",
@@ -89,7 +89,7 @@ def get_completion_gpt(messages, api_key, temperature=0.7, max_tokens=2048):
 
 
 client = openai.OpenAI(
-    api_key="sk-Y8Eek9eur0AeYc2DuGwpHfiy1Kik52cdgxqCr8qdiWn8KBRv", base_url="https://maxflyhub.com/v1"
+    api_key="<your api key>", base_url="<your base url>"
 )
 
 

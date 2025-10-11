@@ -49,8 +49,6 @@ class EventSink:
 
 
 class WebHookEventSink(EventSink):
-    """ref to
-    https://docs.xiaohongshu.com/doc/5f02dcdd594a81bffdf497e142e57ed7."""
 
     def __init__(self, email: str, webhooks: str = "") -> None:
         self.emails = email.split(",") if email else []
@@ -77,7 +75,7 @@ class WebHookEventSink(EventSink):
         cur_date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         qs_url = ""
         if (job_id := os.getenv("QS_JOB_ID")) and (trial_id := os.getenv("QS_TRIAL_ID")):
-            qs_url = f"https://qs2.devops.xiaohongshu.com/trainning/detail/{job_id}/{trial_id}"
+            qs_url = f"xxxx"
             qs_url = f"- QS 任务地址：[{qs_url}]({qs_url})"
 
         markdown = f"""## RedNote 任务失败

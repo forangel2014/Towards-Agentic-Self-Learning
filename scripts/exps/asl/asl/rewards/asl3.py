@@ -1690,10 +1690,9 @@ class AgenticSelfLearning3Reward(WithWorkerGroupMixin, GRPORewards):
                             mixed_dataset.to_parquet(
                                 f"./exp/{config.trainer.experiment_name}/meta_asl/qa_data_{meta_iter}_train.parquet"
                             )
-                            if meta_iter % 3 == 2:
-                                mixed_dataset.select(range(10)).to_parquet(
-                                    f"./exp/{config.trainer.experiment_name}/meta_asl/qa_data_{meta_iter}_test.parquet"
-                                )
+                            mixed_dataset.select(range(10)).to_parquet(
+                                f"./exp/{config.trainer.experiment_name}/meta_asl/qa_data_{meta_iter}_test.parquet"
+                            )
                             open(f"./exp/{config.trainer.experiment_name}/meta_asl/meta_iter.txt", "w").write(
                                 str(meta_iter + 1)
                             )

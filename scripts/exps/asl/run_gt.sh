@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Copyright (c) 2025 RedNote Authors. All Rights Reserved.
+
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 echo DIR: ${DIR}
 
@@ -7,22 +9,21 @@ export PYTHONPATH=$DIR:${PYTHONPATH}
 
 set -exo pipefail
 
-EXP_NAME=${1:-"policy_agent_test"}
+EXP_NAME=${1:-"gt_new"}
 DATA_DIR=/diancpfs/user/sunwangtao/data/asl/nq_hotpotqa_train
 MODEL_PATH=/diancpfs/user/tiandao/models/Qwen2.5-7B-Instruct
 AGENT_STOP='["</tool_call>","</answer>"]'
 
 cmd=(
     trainer.plugin_dir=${DIR}/asl
-    data.train_files=${DATA_DIR}/train_gen_rm.parquet
-    data.val_files=${DATA_DIR}/test_gen_rm.parquet
+    data.train_files=${DATA_DIR}/train_rule.parquet
+    data.val_files=${DATA_DIR}/test_rule.parquet
     data.template=qwen
     data.num_workers=4
     data.train_batch_size=32
     data.max_prompt_length=1024
     data.max_response_length=10240
     data.filter_overlong_prompts=True
-    data.filter_overlong_prompts_workers=64
     data.truncation=right
     data.return_raw_chat=True
     algorithm.adv_estimator=gae
@@ -32,12 +33,10 @@ cmd=(
     reward_model.num_examine=1
     reward_model.reward_name=asl_reward
     reward_model.as_reward_model=policy
-    +reward_model.agentic=True
+    +reward_model.agentic=False
     +reward_model.format_reward=False
     +reward_model.rule_verification_method=subem
     +reward_model.online_prompt_generation=False
-    +reward_model.gen_rm_verification_method=binary
-
     actor_rollout_ref.model.path=${MODEL_PATH}
     actor_rollout_ref.model.enable_gradient_checkpointing=True
     actor_rollout_ref.model.freeze_vision_tower=True

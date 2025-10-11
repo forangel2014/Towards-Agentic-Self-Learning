@@ -61,7 +61,6 @@ class Retrieval(ToolBase):
 
     def _observation2messages(self, search_result):
         # search_result: list of observation
-        # Format Doc: https://docs.xiaohongshu.com/doc/937c0816423559d3db65425d356498dc
         obs_strings = ""
         for obs in search_result:
             obs_string = f"\nid: {obs['document']['id']}\ncontent:\n{obs['document']['contents']}\n"
